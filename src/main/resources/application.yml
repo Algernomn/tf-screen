@@ -1,0 +1,138 @@
+server:
+  port: 9992
+magic-api:
+  banner: false
+  show-url: false
+  editor-config: classpath:/static/mc-editor.js
+  #  backup: #备份相关配置
+  #    enable: true #是否启用
+  #    max-history: -1 #备份保留天数，-1为永久保留
+  #    #datasource: magic  #指定数据源（单数据源时无需配置，多数据源时默认使用主数据源，如果存在其他数据源中需要指定。）
+  #    table-name: api_backup_xj #使用数据库存储备份时的表名
+  compile-cache-size: 500 #配置编译缓存容量
+  cache: # 缓存相关配置
+    capacity: 10000 #缓存容量
+    ttl: -1 # 永不过期
+    enable: true # 启用缓存
+  page:
+    size: size # 页大小的参数名称
+    page: page # 页码的参数名称
+    default-page: 1 # 未传页码时的默认首页
+    default-size: 10 # 未传页大小时的默认页大小
+  web: /zhrc-tf/web
+  resource: #配置存储方式
+    type: database # 配置存储在数据库中
+    tableName: magic_tf # 数据库中的表名
+    #datasource: magic #指定数据源（单数据源时无需配置，多数据源时默认使用主数据源，如果存在其他数据源中需要指定。）
+    prefix: /magic-api # key前缀
+    readonly: false # 是否是只读模式
+  security:
+    username: admin #登录账号
+    password: tfxq@screen # 登录密码
+  secret-key: gheHlFQ7Fq7snyNy
+  response-code:
+    success: 200 #ִ返回成功ֵ
+    invalid: 400 #返回失败ֵ
+    exception: 500 #异常ֵ
+  swagger:
+    version: 1.0
+    description: MagicAPI 接口信息
+    title: MagicAPI Swagger Docs
+    name: MagicAPI 接口
+    location: /v2/api-docs/control-api/swagger2.json
+  show-sql: true
+  throw-exception: true #允许抛出异常
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    dynamic:
+      primary: master
+      datasource:
+        master:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://10.31.101.57:13306/cypt_dev?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+          username: root
+          password: yunjin@123456
+        slave:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://10.31.101.57:13306/cypt_data?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+          username: root
+          password: yunjin@123456
+    druid:
+      initial-size: 10
+      min-idle: 5
+      maxActive: 20
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      breakAfterAcquireFailure: true
+      ConnectionErrorRetryAttempts: 2
+      maxPoolPreparedStatementPerConnectionSize: 20
+      filters: stat,slf4j
+      connectionProperties: druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000
+
+swagger:
+  enable: true
+  # 扫描的包，多个包使用逗号隔开
+  base-package: com.yunjin
+  description: 数据网关接口文档
+  title: 数据网关接口文档
+  version: 1.0.0
+  terms-of-service-url: https://www.yunjin.com
+  contact:
+    email: xxxx@163.com
+    name: yunjin
+    url: www.yunjin.com
+knife4j: # 是否开启Knife4j增强模式 默认 false
+  enable: true
+  # 是否是生产环境
+  production: false
+  # knife4j配置
+  cors: false
+  # 个性化配置 详情配置参照源码
+  setting: # 是否开启Debug调试
+    enableDebug: true
+    language: zh-CN
+    enableSwaggerModels: true
+    enableDocumentManage: true
+    swaggerModelName: 实体类列表
+    enableVersion: true
+    enableReloadCacheParameter: false
+    enableAfterScript: true
+    enableFilterMultipartApiMethodType: POST
+    enableFilterMultipartApis: false
+    enableRequestCache: true
+    enableHost: false
+    enableHostText: 192.168.0.193:8000
+    # 是否开启自定义主页内容
+    enableHomeCustom: false
+    # 主页内容Markdown文件路径
+    homeCustomLocation: classpath:markdown/home.md
+    # 开启搜索
+    enableSearch: true
+    # 显示页底信息
+    enableFooter: false
+    enableFooterCustom: true
+    footerCustomContent: 云津智慧科技有限公司
+    # 动态参数调试
+    enableDynamicParameter: true
+    # 显示OpenAPI规范
+    enableOpenApi: true
+    enableGroup: true
+  # 是否开启BasicHttp验证
+  basic:
+    enable: false
+    username: yunjin
+    password: hadoop543216
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
