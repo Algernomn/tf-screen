@@ -1,9 +1,11 @@
 package com.yunjin.tfscreen.kafka;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.util.Arrays;
 
 /**
